@@ -9,23 +9,42 @@
           required
           class="input"
           placeholder=""
+          [(ngModel)]="inputUrl"
         />
         <label for="input-url">Enter Your Url (www.sagta.com) </label>
       </div>
       <div class="input-block">
-        <input id="input-qr-name" type="text" class="input" placeholder="" />
+        <input
+          id="input-qr-name"
+          type="text"
+          class="input"
+          placeholder=""
+          [(ngModel)]="inputName"
+        />
         <label for="input-qr-name">Enter Name for QR code (optional) </label>
       </div>
       <div class="input-submits">
-        <a href="#">Generate QR Code</a>
-        <a href="#">Download QR Code</a>
+        <a href="#" (click)="generateQR()">Generate QR Code</a>
+        <a [href]="qrCodeDownloadLink" [download]="inputName"
+          >Download QR Code</a
+        >
       </div>
     </div>
 
     <div class="block--qr">
       <qrcode
-        [qrdata]="'www.sagta.com'"
+        [alt]="'QR Code Generator'"
+        [allowEmptyString]="true"
+        [qrdata]="link"
+        (qrCodeURL)="onChangeUrl($event)"
         [cssClass]="'center'"
+        [elementType]="'canvas'"
+        [errorCorrectionLevel]="'Q'"
+        [imageSrc]="'../assets/sagta-logo-big.png'"
+        [imageHeight]="96"
+        [imageWidth]="96"
+        [margin]="4"
+        [colorDark]="'#292929'"
         [width]="280"
       ></qrcode>
     </div>
